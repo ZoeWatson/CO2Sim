@@ -1,0 +1,34 @@
+/*
+Info: Energy Needs, how we get energy. 
+Fusion research 
+Global energy demand grew by 2.9% in 2018 and in a business as usual scenario, by 2040 global energy consumption will reach 740 million terajoules - equivalent to an additional 30 percent growth. 
+Energy need : 580 million terajoules.
+non renable  -> runs out 
+renweable -> how much can we biuld? land? materials? relaiblity 
+https://ourworldindata.org/grapher/per-capita-co2-by-fuel
+what's being used where -> exporting co2
+energy demand
+https://ourworldindata.org/grapher/electricity-demand
+
+// info 
+since wind is not locally predictable in the short term, the use of wind energy should be limited to only fulfill 5 - 15% of the total energy demand of the area [3]
+https://canvas.ubc.ca/courses/135589/pages/mod-3-lesson-2?module_item_id=5908172
+// Coal Range
+"World coal reserves in 2020 are 1.07 trillion tonnes" https://ourworldindata.org/grapher/coal-proved-reserves
+There are 8141 KWH in 1 tonnes of coal
+(1.07 trillion * 8760 *10^-6 )/100 = 8.7 *10^13 =  tWh as a rough max
+
+// Wind Range
+2% of the solar energy absorbed by the Earth goes into wind [3].
+35% of the energy (2.45 W/m2) dissipating in the first kilometre above Earth's surface 
+Betz’s Law 2/3
+https://canvas.ubc.ca/courses/135589/pages/mod-3-lesson-2?module_item_id=5908172
+* times a year to get twh
+196697600 *(2/100)*(35/100) *(2/3)* 8760 = 8,040,997,888 tWh
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.nasa.gov/wp-content/uploads/2015/03/135642main_balance_trifold21.pdf
+* this is a therorectial limit 
+The reseach hasn't been done to realy figure out the practicle limit of reneable energy sources. the therotical limit is very high
+but the limts of space, good area, and materials are very real.
+
+
+*/
