@@ -1,17 +1,17 @@
 // Energy is constructed through energy sources 
 // Policy Name - Value Range (Energy produced) - Current Value (Energy Produced) tWh - Co2 Produced per  tonne
 const EnergyInfo = "this is infomation about energy"
-const BioPower = {"Title":"Biomass","Range":{"Min": 0, "Max":20000}, "Default":151, "effect":{"Energy Production": 1, "CO2 Production":53000}}
-const Coal = {"Title":"Coal", "Range":{"Min": 0, "Max":20000}, "Default":5624, "effect":{"Energy Production": 1, "CO2 Production":1001000}}
-const Geothermal = {"Title":"Geothermal", "Range":{"Min": 0, "Max":20000}, "Default":151, "effect":{"Energy Production": 1, "CO2 Production":37000}}
-const Hydropower = {"Title":"Hydropower", "Range":{"Min": 0,"Max":20000}, "Default": 1417, "effect":{"Energy Production": 1, "CO2 Production":21000}}
-const NaturalGas = {"Title":"NaturalGas", "Range":{"Min": 0,"Max":20000}, "Default":4942, "effect":{"Energy Production": 1, "CO2 Production":486000}}
-const Nuclear = {"Title":"Nuclear", "Range":{"Min": 0, "Max":20000}, "Default": 840, "effect":{"Energy Production": 1, "CO2 Production":13000}}
-const Oil = {"Title":"Oil", "Range":{"Min": 0, "Max":20000}, "Default":6642, "effect":{"Energy Production": 1, "CO2 Production":840000}}
-const Photovoltaics = {"Title":"Photovoltaics", "Range":{"Min": 0, "Max":20000}, "Default":216, "effect":{"Energy Production": 1, "CO2 Production":43000}}
-const ConcentratingSolar = {"Title":"Concentrating Solar Power", "Range":{"Min": 0, "Max":20000}, "Default":216, "effect":{"Energy Production": 1, "CO2 Production":280000}}
-const LandWind = {"Title":"Land Based Wind", "Range":{"Min": 0, "Max":20000},  "Default":344, "effect":{"Energy Production": 1, "CO2 Production":120000}}
-const SeaWind = {"Title":"Offshore Wind", "Range":{"Min": 0, "Max":20000},  "Default": 344, "effect":{"Energy Production": 1, "CO2 Production":190000}}
+const BioPower = {"Title":"Biomass","Range":{"Min": 0, "Max":20000}, "Default":151, "CO2Muitiplyer":53000}
+const Coal = {"Title":"Coal", "Range":{"Min": 0, "Max":20000}, "Default":5624, "CO2Muitiplyer":1001000}
+const Geothermal = {"Title":"Geothermal", "Range":{"Min": 0, "Max":20000}, "Default":151, "CO2Muitiplyer":37000}
+const Hydropower = {"Title":"Hydropower", "Range":{"Min": 0,"Max":20000}, "Default": 1417, "CO2Muitiplyer":21000}
+const NaturalGas = {"Title":"NaturalGas", "Range":{"Min": 0,"Max":20000}, "Default":4942, "CO2Muitiplyer":486000}
+const Nuclear = {"Title":"Nuclear", "Range":{"Min": 0, "Max":20000}, "Default": 840, "CO2Muitiplyer":13000}
+const Oil = {"Title":"Oil", "Range":{"Min": 0, "Max":20000}, "Default":6642, "CO2Muitiplyer":840000}
+const Photovoltaics = {"Title":"Photovoltaics", "Range":{"Min": 0, "Max":20000}, "Default":216, "CO2Muitiplyer":43000}
+const ConcentratingSolar = {"Title":"Concentrating Solar Power", "Range":{"Min": 0, "Max":20000}, "Default":216, "CO2Muitiplyer":280000}
+const LandWind = {"Title":"Land Based Wind", "Range":{"Min": 0, "Max":20000},  "Default":344, "CO2Muitiplyer":120000}
+const SeaWind = {"Title":"Offshore Wind", "Range":{"Min": 0, "Max":20000},  "Default": 344, "CO2Muitiplyer":190000}
 const EnergyPolicies = [BioPower, Coal, Geothermal, Hydropower, NaturalGas, Nuclear, Oil, Photovoltaics, ConcentratingSolar, LandWind, SeaWind]
 
 var EnergyData = { "TopicInfo": EnergyInfo, "Policies" : EnergyPolicies}

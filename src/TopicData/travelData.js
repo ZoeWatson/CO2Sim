@@ -1,24 +1,35 @@
 
 /* car use: number of
-   train use:
-   bus use:
-   THis is for canada 
+   commuting
+   multizoning
+   wlakable cities
+   public tranportation 
+   electirc cars
+   not preportianl to miles travled
+   bus v car 
 */
 const TravelInfo = "this is infomation about Transit"
-const Commuting  = {"Title": "Work From Home", "Range": {"Min": 0,"Max":2777}, "Default":100, "effect":{"Car Use":-1, "Bus Use": -1}}  
-const MultiZoning  = {"Title":"MultiZoning","Range":{"Min": 0, "Max":178898}, "Default":11111, "effect":{"Car Use":-1}}
-const WalkableCities  = {"Title":"Walkable Cities", "Range":{"Min": 0, "Max":237935}, "Default":44854, "effect":{"Car Use":-1}}
-const Train = {"Title":"Train", "Range":{"Min": 0, "Max":17889}, "Default":2413, "effect":{"Car Use":-1, "Train Use": 1}}
-const Bus = {"Title":"Bus", "Range":{"Min": 0,"Max":178898.675}, "Default":11299, "effect":{"Car Use":-1, "Bus Use": 1}}
-const ElectricCars = {"Title":"Electric Cars", "Range":{"Min": 0,"Max":178898.675}, "Default":39413,"effect":{"Energy Need": 1, "Car Use":-1}}
+const PassengerPlanes = {"Title":"Passenger Flights","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 751680000/100}
+const FreightPlanes = {"Title":"Freight Flights","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 176320000/100}
+const Trains = {"Title":"Rail Trips","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 80000000/100}
+const FreightRoad = {"Title":"Freight Road Trips","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 2352000000/100}
+const PassengerRoad = {"Title":"Passenger Road Trips","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 3608000000/100}
+const Shipping = {"Title":"Shipping","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 848000000/100}
+const Pipelines = {"Title":"Pipelines","Range":{"Min": 0, "Max":200}, "Default":100, "CO2Muitiplyer": 176000000/100}
 
-const TravelPolicies = [Commuting, MultiZoning, WalkableCities, Train, Bus, ElectricCars ]
+
+const TravelPolicies = [PassengerRoad,FreightRoad, Trains, PassengerPlanes, FreightPlanes, Shipping,Pipelines]
 
 var TravelData = { "TopicInfo": TravelInfo, "Policies" : TravelPolicies}
 export {TravelData};
 
 /*
 sources 
+https://ourworldindata.org/co2-emissions-from-transport
+Planes: 
+Cars:
+Bus: 
+Train: 
 13.2 million Canadians commute to work via car 24.5 minutes in May 2023
 1.6 million people public transit 42.2 minutes.
  https://www150.statcan.gc.ca/n1/daily-quotidien/230822/dq230822b-eng.htm

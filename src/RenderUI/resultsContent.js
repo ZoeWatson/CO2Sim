@@ -4,7 +4,7 @@ class ResultsContent{
         this.topicsData = topicsData
         this.title = "results" 
         this.defaultYear = 1
-        this.defaultCo2tones = 10000// this.#caculateDefaultCO2tonnes() // APE MONKEY
+        this.defaultCo2tones =  this.#caculateDefaultCO2tonnes() 
         this.defaultCo2ppm = this.#convertCO2tonnesToppm(this.defaultCo2tones) // https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide
 
         this.CurrentGlobalCO2ppm = 416.06;
@@ -25,12 +25,12 @@ class ResultsContent{
     }
     #caculateDefaultCO2tonnes(){
         var defaultCo2 = 0
-        //for (var topic of this.topics){
-             const DefaultPolices = this.topicsData['Energy']["Policies"]
+        for (var topic of this.topics){
+             const DefaultPolices = this.topicsData[topic]["Policies"]
              for (let index = 0; index < DefaultPolices.length; index++){
                  defaultCo2 = defaultCo2 + DefaultPolices[index]["Default"]*DefaultPolices[index]["CO2Muitiplyer"]
              }
-       // }
+        }
         return defaultCo2
     }
     #calulateCo2Forcing(newCO2PerYearInppm, year){
@@ -62,15 +62,14 @@ class ResultsContent{
     }
     #caculateChangeinCO2PerYearinTonnes(NewPolicyData){
         var newCo2perYearinTonnes = 0
-        //for (var topic of this.topics){
-            // CAR USE+GLOBALS
-            const Policies = NewPolicyData['Energy']
+        for (var topic of this.topics){
+            const Policies = NewPolicyData[topic]
              for (let index = 0; index < Policies.length; index++){
-                const CO2Muitiplyer = this.topicsData['Energy']["Policies"][index]["CO2Muitiplyer"]
-                const Co2PerPolicy =  Policies[index]["Value"] * CO2Muitiplyer
+                const CO2Muitiplyer = this.topicsData[topic]["Policies"][index]["CO2Muitiplyer"]
+                const Co2PerPolicy =  (Policies[index]["Value"]) * CO2Muitiplyer
                 newCo2perYearinTonnes = newCo2perYearinTonnes + Co2PerPolicy
              }
-        //}
+        }
         return newCo2perYearinTonnes
     }
     #getUpdatedPolicyDataFromHTML(topicContent){
@@ -88,9 +87,9 @@ class ResultsContent{
         return newPolicyData   
     }
 
-    open(resultsContent, topicContent, GlobalVaraibles){
+    open(resultsContent, topicContent){
         document.getElementById("popUpTitle").innerHTML = resultsContent.title;
-        const results = resultsContent.createContent(topicContent, GlobalVaraibles)
+        const results = resultsContent.createContent(topicContent)
         document.getElementById("mainContent").innerHTML = results 
         
         document.getElementById('yearSlider').addEventListener('input', () =>  {
@@ -98,7 +97,7 @@ class ResultsContent{
           });
     }
 
-    createContent(topicContent, globalVaraibles){
+    createContent(topicContent){
         const NewPolicyData = this.#getUpdatedPolicyDataFromHTML(topicContent)
         const ChangedPolicies = this.#generateChangedPoliciesArray(NewPolicyData)
 
@@ -110,13 +109,8 @@ class ResultsContent{
             content = content+'<p>Title:'+Title+' Value:'+Value+' Change:'+Change+' </p>'
         }
         content = content+'</div>'
-        globalVaraibles = this.updateGlobalVaraibles(NewPolicyData)
-        const names = Object.keys(globalVaraibles)
-        for(var name of names){
-             content = content +"<p>"+name+": "+globalVaraibles[name]+ "</p>"
-        }
   
-        const newCo2perYearinTonnes = globalVaraibles["CO2 Production"]//this.#caculateChangeinCO2PerYearinTonnes(NewPolicyData)
+        const newCo2perYearinTonnes = this.#caculateChangeinCO2PerYearinTonnes(NewPolicyData)
         content = content+'<div> <p> Co2 in Tonnes Per Year:'+newCo2perYearinTonnes+' </p> '
         this.newCo2perYearinTonnes = newCo2perYearinTonnes
         
@@ -129,30 +123,6 @@ class ResultsContent{
         content = content+'<p id="valueYearSlider" >1 </p>'
 
         return content
-    }
-    
-    updateGlobalVaraibles(NewPolicyData){
-        var newGlobalVaraibles = {} 
-        for (var topic of this.topics){
-            const DefaultPolices = this.topicsData[topic]["Policies"]
-            const NewPolicies = NewPolicyData[topic]
-            for(var index = 0; index < DefaultPolices.length; index++){
-                const effects = Object.keys(DefaultPolices[index]["effect"])
-                for (var effect of effects){
-                    const changeRate = DefaultPolices[index]["effect"][effect]
-                    const newValue = parseInt(NewPolicies[index]["Value"])
-                    const change =  newValue * changeRate
-                    if(newGlobalVaraibles[effect] != null){
-                        newGlobalVaraibles[effect] = newGlobalVaraibles[effect] + change
-                    }else{
-                        newGlobalVaraibles[effect] = change
-                    }
-                }
-            }
-
-        }
-        
-       return newGlobalVaraibles
     }
    
     updateResults(resultsContent, year){

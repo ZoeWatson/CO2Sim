@@ -11,17 +11,14 @@ import { FoodData } from "./TopicData/foodData.js";
 import { LandData } from "./TopicData/landUseData.js";
 import { IndustryData } from "./TopicData/industryData.js";
 
-import { globalVaraibles } from "./TopicData/globalVaraibles.js";
-
-
 
 var topicsData = {
- //"Travel": TravelData,
- // "Food":  FoodData,
+  "Travel": TravelData,
+  "Food":  FoodData,
   "Energy": EnergyData,
-  //"Industry": IndustryData,
-  "LandData": LandData,
- //"Residential": ResidentialData
+  "Industry": IndustryData,
+  "Land Use": LandData,
+  "Residential": ResidentialData,
 }
 const topics = Object.keys(topicsData)
 
@@ -39,11 +36,11 @@ for (let i = 0; i < topics.length; i++){
 document.getElementById('closePopUpMenu').addEventListener('click', () =>  {topicContent.save(topicContent); popUpMenu.close()});
 document.getElementById('results').addEventListener('click', () =>  {
   topicContent.save(topicContent); popUpMenu.open(); 
-  resultsContent.open(resultsContent, topicContent, globalVaraibles);
+  resultsContent.open(resultsContent, topicContent);
 });
 
 
 
 /*
-
+https://css.umich.edu/publications/factsheets/sustainability-indicators/carbon-footprint-factsheet
 */
