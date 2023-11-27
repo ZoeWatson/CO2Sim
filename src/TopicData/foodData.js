@@ -1,4 +1,5 @@
-const FoodInfo = "this is infomation about food"
+import {TopicInfo} from "./topicInfo.js"
+const FoodInfo = TopicInfo["Food"]
 const Rice = {"Title": "Rice", "Range": {"Min": 0,"Max":200}, "Default":100,   "CO2Muitiplyer":2263410000/100} 
 const Shrimp = {"Title": "Farmed Shrimp", "Range": {"Min": 0,"Max":200}, "Default":100,   "CO2Muitiplyer":159894000/100} 
 const Goat = {"Title":"Goat","Range":{"Min": 0,"Max":200}, "Default":100,  "CO2Muitiplyer":20000000/100}

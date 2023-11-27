@@ -6,18 +6,20 @@ class ResultsContent{
         this.defaultYear = 1
         this.defaultCo2tones =  this.#caculateDefaultCO2tonnes() 
         this.defaultCo2ppm = this.#convertCO2tonnesToppm(this.defaultCo2tones) // https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide
-
-        this.CurrentGlobalCO2ppm = 416.06;
+        this.CurrentGlobalCO2ppm = 419;
         this.PreIndustrialGlobalCO2ppm = 280;
-        this.DefaultRiseCo2ppm  =  2.13
-        this.CO2RiseNotCapturedBySimPerYearInppm = this.DefaultRiseCo2ppm-this.defaultCo2ppm; // the Co2 not accounted for in the sim
+        this.DefaultRiseCo2ppm  =  2.36;
+        this.percentOfCO2emissionsThatRemainsInAtmosphere = 0.44;
+        this.CO2RiseNotCapturedBySimPerYearInppm = this.DefaultRiseCo2ppm-this.#calcuateCO2RemainingInAtmosphere(this.defaultCo2ppm); // the Co2 not accounted for in the sim
+        console.log(this.#calcuateCO2RemainingInAtmosphere(this.defaultCo2ppm))
         if(this.CO2RiseNotCapturedBySim < 0){
             console.log("Warning: default CO2 levels in Sim are larger than expected global rise")
         }
-        this.forcingConstant = 3.8
-        this.climateSensitivity = 0.8
-
+        this.climateSensitivity = 3.8 //3
         this.newCo2perYearinTonnes = 0
+    }
+    #calcuateCO2RemainingInAtmosphere(co2){
+        return co2 * (4/9)//this.percentOfCO2emissionsThatRemainsInAtmosphere
     }
     #convertCO2tonnesToppm(co2InTonnes){
         const co2inGigatones = co2InTonnes/1000000000 
@@ -26,17 +28,21 @@ class ResultsContent{
     #caculateDefaultCO2tonnes(){
         var defaultCo2 = 0
         for (var topic of this.topics){
+            var count = 0
              const DefaultPolices = this.topicsData[topic]["Policies"]
              for (let index = 0; index < DefaultPolices.length; index++){
                  defaultCo2 = defaultCo2 + DefaultPolices[index]["Default"]*DefaultPolices[index]["CO2Muitiplyer"]
+                 count = count + DefaultPolices[index]["Default"]*DefaultPolices[index]["CO2Muitiplyer"]
              }
+            var countppm = this.#convertCO2tonnesToppm(this.#calcuateCO2RemainingInAtmosphere(count))
+             console.log("Default CO2 for "+topic+" : "+countppm+" ppm, "+countppm/ 2.13)
         }
         return defaultCo2
     }
     #calulateCo2Forcing(newCO2PerYearInppm, year){
-        const SimulatedCO2RiseByYearInppm = (newCO2PerYearInppm+this.CO2RiseNotCapturedBySimPerYearInppm)*year
+        const SimulatedCO2RiseByYearInppm = (newCO2PerYearInppm/*+this.CO2RiseNotCapturedBySimPerYearInppm*/)*year
         const SimulatedGlobalCO2ppm = (SimulatedCO2RiseByYearInppm+this.CurrentGlobalCO2ppm)
-        return (Math.log(SimulatedGlobalCO2ppm/this.PreIndustrialGlobalCO2ppm)/Math.LN2) * this.forcingConstant
+        return (Math.log(SimulatedGlobalCO2ppm/this.PreIndustrialGlobalCO2ppm)/Math.LN2)
     }
     #calulateTempChange(forcing){
         return this.climateSensitivity*forcing
@@ -74,6 +80,7 @@ class ResultsContent{
     }
     #getUpdatedPolicyDataFromHTML(topicContent){
         var newPolicyData = {}
+        var count = 0
         for (var topic of this.topics){
             var placerholder = document.createElement('div');
             placerholder.innerHTML = topicContent.content[topic];
@@ -81,9 +88,11 @@ class ResultsContent{
             var policyArray = []
             for (let index = 0; index < Policies.length; index++){
                 policyArray.push({ "Title" :  Policies[index].id, "Value": Policies[index].value})
+                count = count +1
             }
             newPolicyData[topic] = policyArray
         }
+        console.log("Factor count :" + count)
         return newPolicyData   
     }
 
@@ -131,7 +140,8 @@ class ResultsContent{
     }
     
     calculateResults(newCo2perYearinTonnes, year){
-        const newCO2PerYearInppm = this.#convertCO2tonnesToppm(newCo2perYearinTonnes)
+        const co2RemaininginTonnes = this.#calcuateCO2RemainingInAtmosphere(newCo2perYearinTonnes)
+        const newCO2PerYearInppm = this.#convertCO2tonnesToppm(co2RemaininginTonnes)
         const forcing = this.#calulateCo2Forcing(newCO2PerYearInppm, year)
         return this.#calulateTempChange(forcing)
     }

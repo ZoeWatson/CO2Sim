@@ -32,11 +32,13 @@ class TopicContent{
             }
         }
         for (var policy of policies){
-            content = content+'<p>'+policy["Title"]+'</p>'
+            content = content + '<div class = policyDiv>'
             content = content+'<input type="range" min="'+policy["Range"]["Min"]+'" max="'+policy["Range"]["Max"]+'"'
             content = content+'value="'+policy["Default"]+'" class="policyValues" id="'+policy["Title"]+'"'
             content = content+ 'oninput="document.getElementById(\'value'+policy["Title"]+'\').innerHTML = this.value">';
-            content = content+'<p id="value'+policy["Title"]+'" >'+policy["Default"]+' </p>'
+            content = content+'<p>'+policy["Title"]+" :"
+            content = content+'<span id="value'+policy["Title"]+'" >'+policy["Default"]+'  </span>  </p>'
+            content = content + '</div>'
         }
         return content
     }    
